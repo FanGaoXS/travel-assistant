@@ -1,0 +1,11 @@
+.idea
+.env
+.bin/
+bin/
+.DS_Store
+docker-compose.yaml
+
+__debug_*
+vendor/
+
+.venv
