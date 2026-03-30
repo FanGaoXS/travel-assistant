@@ -1,8 +1,6 @@
-import os
-from pathlib import Path
 from typing import List
 
-from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents.base import Document
@@ -21,11 +19,9 @@ class Retriever:
     retriever: VectorStoreRetriever
 
     def __init__(self, env: Env):
-        current_dir = Path(__file__).parent.resolve()
-        filepath = os.path.join(current_dir, "./documents/text.txt")
-        loaded = TextLoader(
-            file_path=filepath,
-            # encoding="gbk",
+        loaded = WebBaseLoader(
+            web_path=env.retriever_web_path,
+            show_progress=True,
         ).load()
         docs = RecursiveCharacterTextSplitter(
             chunk_size=300,
